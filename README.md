@@ -33,11 +33,11 @@ This repository contains a simple implementation of the Hangman game in C. The g
 
 ## Customization
 
-You can customize the game by adding your own words and hints to the code. Simply update the `dicas` and `palavras` lists in the `main.c` file and make sure the indices match.
+You can customize the game by adding your own words and hints to the code. Simply update the `tips` and `words` lists in the `main.c` file and make sure the indices match.
 
 ```c
-char dicas[] = "YOUR_HINT_HERE";
-char palavras[] = "YOUR_WORD_HERE";
+char tips[] = "YOUR_HINT_HERE";
+char words[] = "YOUR_WORD_HERE";
 ```
 
 ## Requirements
