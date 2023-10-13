@@ -3,27 +3,27 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
-#define TAMANHO_LISTA_PALAVRAS 10
+#define LENGTH_WORDS_LISTS 10
 
 
-char dicas[] = "ANIMALCENOURACOMPUTADORCASACARROCAMAROUPATRANCARALOARTE";
-char palavras[] = "MACACOCOELHOMOUSETELHADOVOLANTETRAVESSEIROCAMISETAFECHADURAESCOAMENTOQUADRO";
-int indice_dicas[TAMANHO_LISTA_PALAVRAS] = {0, 6, 13, 23, 27, 32, 36, 41, 47, 51};
-int indice_palavras[TAMANHO_LISTA_PALAVRAS] = {0, 6, 12, 17, 24, 31, 42, 50, 59, 69};
+char tips[] = "ANIMALCENOURACOMPUTADORCASACARROCAMAROUPATRANCARALOARTE";
+char words[] = "MACACOCOELHOMOUSETELHADOVOLANTETRAVESSEIROCAMISETAFECHADURAESCOAMENTOQUADRO";
+int index_tips[LENGTH_WORDS_LISTS] = {0, 6, 13, 23, 27, 32, 36, 41, 47, 51};
+int index_words[LENGTH_WORDS_LISTS] = {0, 6, 12, 17, 24, 31, 42, 50, 59, 69};
 
-void imprimir_todas_palavras(char *palavras, int *indice_palavras){
+void print_all_words(char *words, int *index_words){
     int i = 0;
     int l = 0;
 
-    while(i < TAMANHO_LISTA_PALAVRAS){
-        if(i == TAMANHO_LISTA_PALAVRAS - 1){
-            while(palavras[l] != '\0'){
-                printf("%c", palavras[l]);
+    while(i < LENGTH_WORDS_LISTS){
+        if(i == LENGTH_WORDS_LISTS - 1){
+            while(words[l] != '\0'){
+                printf("%c", words[l]);
                 l++;
             }
         }
-        while(l < indice_palavras[i + 1]){
-            printf("%c", palavras[l]);
+        while(l < index_words[i + 1]){
+            printf("%c", words[l]);
             l++;
         }
         printf("\n");
@@ -31,27 +31,27 @@ void imprimir_todas_palavras(char *palavras, int *indice_palavras){
     }
 }
 
-int sortear_indice(){
+int draw_index(){
     srand(time(NULL));
-    return rand() % (TAMANHO_LISTA_PALAVRAS);
+    return rand() % (LENGTH_WORDS_LISTS);
 }
 
-void imprimir_via_indice(int indice_comeco, int indice_final, char *palavras){
-    int indice = indice_comeco;
-    if(indice_comeco == indice_final){
-        while(palavras[indice] != '\0'){
-            printf("%c", palavras[indice]);
-            indice++;
+void print_via_index(int index_beginning, int index_end, char *words){
+    int index = index_beginning;
+    if(index_beginning == index_end){
+        while(words[index] != '\0'){
+            printf("%c", words[index]);
+            index++;
         }
     }
-    while(indice < indice_final){
-        printf("%c", palavras[indice]);
-        indice++;
+    while(index < index_end){
+        printf("%c", words[index]);
+        index++;
     }
     printf("\n");
 }
 
-char* inicializar_hud(int size){
+char* initialize_hud(int size){
     char* hud = (char*)malloc((size + 1) * sizeof(char));
 
     if(hud != NULL){
@@ -63,53 +63,53 @@ char* inicializar_hud(int size){
     return hud;
 }
 
-char* pegar_palavra(int indice_comeco, int indice_final){
-    int tamanho_palavra=0;
-    if(indice_comeco == indice_final){
-        while(palavras[indice_final]!='\0'){
-            indice_final++;
-            tamanho_palavra++;
+char* get_word(int index_beginning, int index_end){
+    int length_word=0;
+    if(index_beginning == index_end){
+        while(words[index_end]!='\0'){
+            index_end++;
+            length_word++;
         }
     } else {
-        tamanho_palavra = indice_final - indice_comeco;
+        length_word = index_end - index_beginning;
     }
 
-    char* palavra = (char*)malloc((tamanho_palavra + 1) * sizeof(char));
+    char* word = (char*)malloc((length_word + 1) * sizeof(char));
     int i=0;
 
-    for(int j=indice_comeco; j<indice_final;j++){
-        palavra[i] = palavras[j];
+    for(int j=index_beginning; j<index_end;j++){
+        word[i] = words[j];
         i++;
     }
-    palavra[i] = '\0';
+    word[i] = '\0';
 
-    return palavra;
+    return word;
 }
 
-int pegar_tamanho_palavra(int indice_final, int indice_comeco){
-    int tamanho = 0;
-    if(indice_comeco == indice_final){
-        for(int i=indice_comeco; palavras[i] != '\0';i++){
-            tamanho++;
+int get_length_word(int index_end, int index_beginning){
+    int length = 0;
+    if(index_beginning == index_end){
+        for(int i=index_beginning; words[i] != '\0';i++){
+            length++;
         }
     } else {
-        tamanho = indice_final - indice_comeco;
+        length = index_end - index_beginning;
     }
-    return tamanho;
+    return length;
 }
 
-char* atualizar_hud(char letra,char *palavra, char *hud, int size){
+char* update_hud(char letter,char *word, char *hud, int size){
     char* new_hud = (char*)malloc((size + 1) * sizeof(char));
     int i = 0;
     if (new_hud != NULL){
-        while(palavra[i]!='\0'){
+        while(word[i]!='\0'){
             printf("%c", hud[i]);
-            if(letra == palavra[i]){
-                new_hud[i] = letra;
+            if(letter == word[i]){
+                new_hud[i] = letter;
             } else if(hud[i] == '_'){
                 new_hud[i] = '_';
             } else {
-                new_hud[i] = palavra[i];
+                new_hud[i] = word[i];
             }
             i++;
         }
@@ -118,7 +118,7 @@ char* atualizar_hud(char letra,char *palavra, char *hud, int size){
     return new_hud;
 }
 
-int ganhou(char *hud){
+int win(char *hud){
     for(int i=0;hud[i]!='\0';i++){
         printf("\nCHECANDO VITORIA: %c", hud[i]);
         if(hud[i]=='_'){
@@ -128,8 +128,8 @@ int ganhou(char *hud){
     return 1;
 }
 
-char maiusculo(char letra){
-    switch(letra){
+char upper(char letter){
+    switch(letter){
         case 'a':
             return 'A';
         case 'b':
@@ -181,27 +181,27 @@ char maiusculo(char letra){
         case 'Z':
             return 'Z';
         default:
-            return letra;
+            return letter;
     }
 }
 
 void main ()
 {
-    int modo_de_jogo;
+    int game_mode;
 
-    while(modo_de_jogo != 1 && modo_de_jogo != 2){
+    while(game_mode != 1 && game_mode != 2){
         printf("[1] UM JOGADOR");
         printf("\n[2] DOIS JOGADORES");
         printf("\n\nESCOLHA UM MODO DE JOGO: ");
-        scanf("%d", &modo_de_jogo);
-        if(modo_de_jogo != 1 && modo_de_jogo != 2){
+        scanf("%d", &game_mode);
+        if(game_mode != 1 && game_mode != 2){
             printf("\nOPCAO INCORRETA, DIGITE 1 OU 2");
         } else {
             system("cls");
         }
     }
 
-    if(modo_de_jogo == 1){
+    if(game_mode == 1){
         printf("REGRAS DO JOGO:");
         printf("\n- O NUMERO DE CHANCES QUE O JOGADOR TERA SERA O TAMANHO DA PALAVRA + 2!");
         printf("\n- CASO O JOGADOR DESCUBRA A PALAVRA, ELE SERA O VENCEDOR");
@@ -210,51 +210,51 @@ void main ()
         system("pause");
         system("cls");
 
-        int indice_comeco = sortear_indice();
-        int indice_final;
-        if(indice_comeco == (TAMANHO_LISTA_PALAVRAS - 1)){
-            indice_final = indice_comeco;
+        int index_beginning = draw_index();
+        int index_end;
+        if(index_beginning == (LENGTH_WORDS_LISTS - 1)){
+            index_end = index_beginning;
         }else{
-            indice_final = indice_comeco + 1;
+            index_end = index_beginning + 1;
         }
 
-        int tamanho_palavra = pegar_tamanho_palavra(indice_palavras[indice_final], indice_palavras[indice_comeco]);
-        int tentativas = tamanho_palavra + 2;
-        char letra[2];
+        int length_word = get_length_word(index_words[index_end], index_words[index_beginning]);
+        int attempts = length_word + 2;
+        char letter[2];
 
-        char *hud = inicializar_hud(tamanho_palavra);
-        char *palavra = pegar_palavra(indice_palavras[indice_comeco], indice_palavras[indice_final]);
+        char *hud = initialize_hud(length_word);
+        char *word = get_word(index_words[index_beginning], index_words[index_end]);
 
-        while(tentativas>0){
+        while(attempts>0){
             printf("Dica: ");
-            imprimir_via_indice(indice_dicas[indice_comeco], indice_dicas[indice_final], &dicas);
-            printf("%d letras\n", tamanho_palavra);
-            printf("%d tentativas\n", tentativas);
+            print_via_index(index_tips[index_beginning], index_tips[index_end], &tips);
+            printf("%d letras\n", length_word);
+            printf("%d tentativas\n", attempts);
             printf("\n\n%s\n", hud);
             printf("Insira uma letra: ");
-            scanf("%s", &letra);
-            letra[0] = maiusculo(letra[0]);
-            hud = atualizar_hud(letra[0], palavra, hud, tamanho_palavra);
-            if(ganhou(hud)){
+            scanf("%s", &letter);
+            letter[0] = upper(letter[0]);
+            hud = update_hud(letter[0], word, hud, length_word);
+            if(win(hud)){
                 system("cls");
-                printf("\n\nYOU WIN!");
-                printf("\nPalavra: %s", palavra);
-                printf("\nTentativas restantes: %d", tentativas);
+                printf("\n\nVOCE VENCEU!");
+                printf("\npalavra: %s", word);
+                printf("\ntentativas restantes: %d", attempts);
                 return;
             }
-            tentativas--;
+            attempts--;
             system("cls");
         }
         printf("\n\nGAME OVER!!");
-        printf("\nA palavra era: %s", palavra);
+        printf("\nA palavra era: %s", word);
     }
 
-    if(modo_de_jogo == 2){
+    if(game_mode == 2){
         char jogador_1[50];
         char jogador_2[50];
 
         char dica_dj[50];
-        char palavra_dj[50];
+        char word_dj[50];
 
         printf("REGRAS DO JOGO:");
         printf("\n- O JOGADOR UM VAI PASSAR UMA DICA E UMA PALAVRA PARA O JOGADOR DOIS");
@@ -280,46 +280,46 @@ void main ()
         scanf("%s", &dica_dj);
 
         printf("INSIRA UMA PALAVRA:");
-        scanf("%s", &palavra_dj);
+        scanf("%s", &word_dj);
 
         printf("PARA LIMPAR A TELA E PASSAR PRO %s, DIGITE ENTER...\n\n\n", jogador_2);
         system("pause");
         system("cls");
 
-        int tamanho_palavra_dj = 0;
+        int length_word_dj = 0;
 
         for(int i = 0; dica_dj[i] != '\0';i++){
-            dica_dj[i] = maiusculo(dica_dj[i]);
+            dica_dj[i] = upper(dica_dj[i]);
         }
-        for(int i = 0; palavra_dj[i] != '\0';i++){
-            palavra_dj[i] = maiusculo(palavra_dj[i]);
-            tamanho_palavra_dj++;
+        for(int i = 0; word_dj[i] != '\0';i++){
+            word_dj[i] = upper(word_dj[i]);
+            length_word_dj++;
         }
-        int tentativas_dj = tamanho_palavra_dj + 2;
-        char *hud_dj = inicializar_hud(tamanho_palavra_dj);
-        char letra_dj[2];
+        int attempts_dj = length_word_dj + 2;
+        char *hud_dj = initialize_hud(length_word_dj);
+        char letter_dj[2];
 
-        while(tentativas_dj>0){
+        while(attempts_dj>0){
             printf("Dica: %s", dica_dj);
-            printf("\n%d letras\n", tamanho_palavra_dj);
-            printf("%d tentativas\n", tentativas_dj);
+            printf("\n%d letras\n", length_word_dj);
+            printf("%d tentativas\n", attempts_dj);
             printf("\n\n%s\n", hud_dj);
             printf("Insira uma letra: ");
-            scanf("%s", &letra_dj);
-            letra_dj[0] = maiusculo(letra_dj[0]);
-            hud_dj = atualizar_hud(letra_dj[0], palavra_dj, hud_dj, tamanho_palavra_dj);
-            if(ganhou(hud_dj)){
+            scanf("%s", &letter_dj);
+            letter_dj[0] = upper(letter_dj[0]);
+            hud_dj = update_hud(letter_dj[0], word_dj, hud_dj, length_word_dj);
+            if(win(hud_dj)){
                 system("cls");
-                printf("%s GANHOU!", jogador_2);
-                printf("\nPalavra: %s", palavra_dj);
-                printf("\nTentativas restantes: %d", tentativas_dj);
+                printf("%s ganhou!", jogador_2);
+                printf("\npalavra: %s", word_dj);
+                printf("\ntentativas restantes: %d", attempts_dj);
                 return;
             }
-            tentativas_dj--;
+            attempts_dj--;
             system("cls");
         }
-        printf("\n\n%s GANHOU!", jogador_1);
-        printf("\nA palavra era: %s", palavra_dj);
+        printf("\n\n%s ganhou!", jogador_1);
+        printf("\nA palavra era: %s", word_dj);
 
     }
 }
