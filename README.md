@@ -1,6 +1,6 @@
 # Hangman Game in C
 
-![Hangman](assets/hangman.png)
+![Hangman](assets/repo-readme/hangman.png)
 
 This repository contains a simple implementation of the Hangman game in C. The game can be played by one player against the computer or by two players. The player tries to guess a word based on hints and letter guesses.
 
