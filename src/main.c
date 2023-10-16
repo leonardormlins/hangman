@@ -120,7 +120,6 @@ char* update_hud(char letter,char *word, char *hud, int size){
 
 int win(char *hud){
     for(int i=0;hud[i]!='\0';i++){
-        printf("\nCHECANDO VITORIA: %c", hud[i]);
         if(hud[i]=='_'){
             return 0;
         }
